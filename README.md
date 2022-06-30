@@ -1,4 +1,5 @@
 # MS Partner Tools
+![](https://img.shields.io/pypi/v/ms-partner-tools.svg)
 
 Wrapper for the Microsoft Partner Center REST API.
 
