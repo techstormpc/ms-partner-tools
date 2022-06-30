@@ -40,5 +40,6 @@ setup(
     install_requires=install_requires,
     url='https://github.com/techstormpc/ms-partner-tools',
     entry_points=entry_points,
-    long_description=long_description
+    long_description=long_description,
+    long_description_content_type='text/markdown'
 )

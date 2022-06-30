@@ -48,6 +48,4 @@ customers = client.customer.get_customers()
 
 for customer in customers:
     print(f'Customer: {customer["companyProfile"]["companyName"]}, Tenant ID: {customer["id"]}')
-
-
 ```
