@@ -14,11 +14,15 @@ Currently, only a few Partner Center interactions are supported:
 
 ## Installation
 
-`pip install ms-partner-tools`, or clone the repo and run `python setup.py install`.
+`pip install ms-partner-tools`
+
+or clone the repo and run `python setup.py install`.
 
 ## App Registration
 
-Under App registrations -> API permissions, add the Microsoft Partner Center `user_impersonation` permission.
+In the Azure AD portal, create a new App registration.
+
+Under API permissions, add the Microsoft Partner Center `user_impersonation` permission.
 You can search for it under "APIs my organization uses".
 Please note that this only supports delegated permissions, not application permissions.
 
@@ -28,7 +32,11 @@ If the interactive auth flow is used, you must add the "Mobile and desktop appli
 
 ## Sample Usage
 
-### CLI
+### CLI 
+
+You must first run `partnertools-cli configure` to set up the authentication details (from the app registration). 
+
+Registering a device
 
 ```bash
 $ partnertools-cli register-device
@@ -41,6 +49,8 @@ Device was added
 ```
 
 ### SDK
+
+Listing customers
 
 ```python
 import os
