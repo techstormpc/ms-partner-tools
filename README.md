@@ -1,15 +1,20 @@
 # MS Partner Tools
-![](https://img.shields.io/pypi/v/ms-partner-tools.svg)
+[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-black.svg)](https://sonarcloud.io/summary/new_code?id=techstormpc_ms-partner-tools)
+
+[![PyPI](https://img.shields.io/pypi/v/ms-partner-tools.svg)](https://pypi.org/project/ms-partner-tools/#description)
 
 Wrapper for the Microsoft Partner Center REST API.
 
-Supports Python 3.8.
+Supports Python 3.8+.
 
-Currently, only adding devices to Autopilot is supported and the Device code authentication flow.
+Currently, only a few Partner Center interactions are supported:
+- Enrolling devices in Autopilot on your customers tenant
+- Listing customers
+- Listing devices in a batch group
 
 ## Installation
 
-`pip install ms-partner-tools`
+`pip install ms-partner-tools`, or clone the repo and run `python setup.py install`.
 
 ## App Registration
 
