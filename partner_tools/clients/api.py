@@ -1,6 +1,10 @@
+import logging
+
 import requests
 
 from partner_tools.auth.auth_info import AuthInfo
+
+logger = logging.getLogger()
 
 HEADERS = {
     'Accept': 'application/json',
@@ -24,14 +28,27 @@ class ApiClient:
 
     def post(self, path, data=None):
         url = f'{self.base_url}/{path}'
-        return requests.post(url,
+        resp = requests.post(url,
                              json=data,
                              headers=HEADERS,
                              auth=self.auth_info.get_request_auth())
 
+        # Not sure if all POSTs require 202
+        if resp.status_code != 202:
+            logger.warning(f'Request not accepted (status: {resp.status_code})')
+            logger.warning(resp.json())
+
+        return resp.json()
+
     def get(self, path, query_params=None):
         url = f'{self.base_url}/{path}'
-        return requests.get(url,
+        resp = requests.get(url,
                             params=query_params,
                             headers=HEADERS,
                             auth=self.auth_info.get_request_auth())
+
+        if resp.status_code != 200:
+            logger.warning(f'Request not accepted (status: {resp.status_code})')
+            logger.warning(resp.json())
+
+        return resp.json()

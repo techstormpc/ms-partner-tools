@@ -40,10 +40,28 @@ def run_register_device():
         'hardwareHash': '',
         'productKey': ''
     }
-    client.customer.enroll_devices([device], customer['id'], 'cli-upload')
+    client.customer.enroll_devices([device], customer['id'], DEVICE_BATCH_NAME)
 
     print()
     print('Device was added')
+
+
+def run_request_relationship():
+    client = PartnerTools(auth_info=get_auth())
+
+    url = client.customer.get_relationship_request_url()
+    print(url)
+
+
+def run_get_devices():
+    client = PartnerTools(auth_info=get_auth())
+
+    customers = client.customer.get_customers()
+
+    customer = get_customer(customers)
+
+    devices = client.customer.get_devices(customer['id'], DEVICE_BATCH_NAME)
+    print(devices)
 
 
 def run_configure():
