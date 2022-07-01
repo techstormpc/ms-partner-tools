@@ -1,7 +1,7 @@
-from azure.identity import InteractiveBrowserCredential, TokenCachePersistenceOptions
-from partner_tools.auth.auth_info import SCOPES
+from azure.identity import InteractiveBrowserCredential
 
 from partner_tools.auth import AuthInfo
+from partner_tools.auth.auth_info import SCOPES
 
 
 class Interactive(AuthInfo):

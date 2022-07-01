@@ -13,12 +13,15 @@ Currently, only adding devices to Autopilot is supported and the Device code aut
 
 ## App Registration
 
-Need to add the Microsoft Partner Center user_impersonation permission under the API permissions tab.
+Under App registrations -> API permissions, add the Microsoft Partner Center `user_impersonation` permission.
+You can search for it under "APIs my organization uses".
+Please note that this only supports delegated permissions, not application permissions.
 
-The device code flow requires the "Allow public client flows" option to be turned on.
+The device code flow requires the "Allow public client flows" option to be turned on. This needs a client secret.
+
+If the interactive auth flow is used, you must add the "Mobile and desktop applications" platform and set the "Redirect URI" to `http://localhost:8400`.
 
 ## Sample Usage
-
 
 ### CLI
 
