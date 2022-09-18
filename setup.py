@@ -21,7 +21,7 @@ install_requires = [
 
 setup(
     name='ms-partner-tools',
-    version='0.0.2',
+    version='0.1.0',
     author='TechStorm PC',
     license='MIT',
     classifiers=[
