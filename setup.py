@@ -15,7 +15,8 @@ install_requires = [
     "click>=8.0,<8.1",
     "questionary==1.10.0",
     "requests==2.27.1",
-    "azure-identity>=1.8.0"
+    "azure-identity>=1.8.0",
+    "pydantic==1.10.2"
 ]
 
 setup(

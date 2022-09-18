@@ -1,17 +1,16 @@
-from typing import TypedDict
+from pydantic import BaseModel
 
 
-class CompanyProfile(TypedDict):
-    address: str
-    email: str
+class CompanyProfile(BaseModel):
     companyName: str
     domain: str
     tenantId: str
 
 
-class Customer(TypedDict):
+class Customer(BaseModel):
     """
     Represents a customer, there are more fields present
     """
     id: str  # This is also the tenant ID
     companyProfile: CompanyProfile
+    relationshipToPartner: str

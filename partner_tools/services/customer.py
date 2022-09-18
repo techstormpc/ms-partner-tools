@@ -43,7 +43,7 @@ class CustomerService(BaseService):
         :return a list of customers you have relationships with
         """
         resp = self._api_client.get(self.base_url)
-        return resp['items']
+        return [Customer(**item) for item in resp['items']]
 
     def get_relationship_request_url(self) -> str:
         """
