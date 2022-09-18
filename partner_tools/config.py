@@ -2,7 +2,7 @@ import configparser
 import csv
 import os
 import shutil
-from functools import cache
+from functools import lru_cache
 from pathlib import Path
 from typing import NamedTuple, List
 
@@ -26,7 +26,7 @@ def get_config_directory() -> Path:
     return config_dir
 
 
-@cache
+@lru_cache(maxsize=None)
 def load_device_options() -> List[CommonDevice]:
     config_dir = get_config_directory()
     devices_path = Path(config_dir, 'devices.csv')
