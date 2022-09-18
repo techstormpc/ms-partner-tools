@@ -1,4 +1,9 @@
-from typing import TypedDict
+from typing import TypedDict, NamedTuple
+
+
+class CommonDevice(NamedTuple):
+    manufacturer: str
+    model: str
 
 
 class AutopilotDevice(TypedDict):

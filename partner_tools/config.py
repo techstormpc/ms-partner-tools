@@ -1,7 +1,13 @@
 import configparser
+import csv
 import os
+import shutil
+from functools import cache
 from pathlib import Path
-from typing import NamedTuple
+from typing import NamedTuple, List
+
+from partner_tools.models.autopilot_device import CommonDevice
+
 
 CONFIG_LOCATION = "~/.ms-partner-tools"
 
@@ -18,6 +24,28 @@ def get_config_directory() -> Path:
     config_dir = Path(config_location).expanduser()
     config_dir.mkdir(exist_ok=True)
     return config_dir
+
+
+@cache
+def load_device_options() -> List[CommonDevice]:
+    config_dir = get_config_directory()
+    devices_path = Path(config_dir, 'devices.csv')
+
+    # Initialize devices file based on template
+    if not devices_path.exists():
+        repo_dir = Path(__file__).resolve().parent.parent
+        template_file = Path(repo_dir, 'common_devices.csv')
+        shutil.copy(template_file, devices_path)
+
+    with devices_path.open() as devices_file:
+        reader = csv.DictReader(devices_file)
+        return [
+            CommonDevice(
+                manufacturer=row['manufacturer'],
+                model=row['model']
+            )
+            for row in reader
+        ]
 
 
 def save_config(auth_config: AuthConfig):
