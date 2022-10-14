@@ -40,7 +40,7 @@ def run_register_device():
         'hardwareHash': '',
         'productKey': ''
     }
-    client.customer.enroll_devices([device], customer['id'], DEVICE_BATCH_NAME)
+    client.customer.enroll_devices([device], customer.id, DEVICE_BATCH_NAME)
 
     print()
     print('Device was added')
@@ -60,7 +60,7 @@ def run_get_devices():
 
     customer = get_customer(customers)
 
-    devices = client.customer.get_devices(customer['id'], DEVICE_BATCH_NAME)
+    devices = client.customer.get_devices(customer.id, DEVICE_BATCH_NAME)
     print(devices)
 
 
