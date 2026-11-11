@@ -1,10 +1,8 @@
-from typing import List
-
 from partner_tools.cli.interactive.question_wrapper import ask, QuestionType
 from partner_tools.models import Customer
 
 
-def get_customer(customers: List[Customer]):
+def get_customer(customers: list[Customer]):
     choices = [f'{customer.companyProfile.companyName} - ({customer.id})'
                for customer in customers]
 

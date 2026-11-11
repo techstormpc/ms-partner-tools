@@ -5,7 +5,7 @@
 
 Wrapper for the Microsoft Partner Center REST API.
 
-Supports Python 3.8+.
+Supports Python 3.15+.
 
 Currently, only a few Partner Center interactions are supported:
 - Enrolling devices in Autopilot on your customers tenant
@@ -16,7 +16,7 @@ Currently, only a few Partner Center interactions are supported:
 
 `pip install ms-partner-tools`
 
-or clone the repo and run `python setup.py install`.
+or clone the repo and run `pip install .`.
 
 ## App Registration
 

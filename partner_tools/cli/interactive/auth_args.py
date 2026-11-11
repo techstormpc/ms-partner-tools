@@ -10,7 +10,7 @@ def gather_login():
                           Interactive.__name__])
     client_id = ask(QuestionType.text, "Please enter the client ID:")
     client_secret = ''
-    if method is not Interactive.__name__:
+    if method != Interactive.__name__:
         client_secret = ask(QuestionType.text, "Please enter the client secret:")
     tenant_id = ask(QuestionType.text, "Please enter the tenant ID (CSP):")
 

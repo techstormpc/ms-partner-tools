@@ -1,7 +1,5 @@
 from abc import abstractmethod, ABC
 from pathlib import Path
-from typing import Optional
-
 from azure.identity import AuthenticationRecord, TokenCachePersistenceOptions
 from requests.auth import AuthBase
 
@@ -14,17 +12,16 @@ TOKEN_FILE_NAME = '.token'
 def _save_token(token: str):
     config_dir = get_config_directory()
     token_path = Path(config_dir, TOKEN_FILE_NAME)
-    with token_path.open('w') as token_file:
+    with token_path.open('w', encoding='utf-8') as token_file:
         token_file.write(token)
 
 
-def _load_token() -> Optional[str]:
+def _load_token() -> str | None:
     config_dir = get_config_directory()
     token_path = Path(config_dir, TOKEN_FILE_NAME)
     if not token_path.exists():
         return None
-    with token_path.open() as token_file:
-        return token_file.read()
+    return token_path.read_text(encoding='utf-8')
 
 
 class AuthInfo(ABC):

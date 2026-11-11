@@ -1,7 +1,8 @@
 import click
 
-from partner_tools.cli.controller import run_register_device, run_configure,\
-    run_request_relationship, run_get_devices
+from partner_tools.cli.controller import (
+    run_register_device, run_configure, run_request_relationship, run_get_devices
+)
 
 
 @click.group(help="Partner Tools CLI - Tool for interacting with the Microsoft Partner Center")

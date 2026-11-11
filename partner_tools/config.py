@@ -2,9 +2,10 @@ import configparser
 import csv
 import os
 import shutil
-from functools import lru_cache
+from functools import cache
+from importlib.resources import files
 from pathlib import Path
-from typing import NamedTuple, List
+from typing import NamedTuple
 
 from partner_tools.models.autopilot_device import CommonDevice
 
@@ -26,18 +27,18 @@ def get_config_directory() -> Path:
     return config_dir
 
 
-@lru_cache(maxsize=None)
-def load_device_options() -> List[CommonDevice]:
+@cache
+def load_device_options() -> list[CommonDevice]:
     config_dir = get_config_directory()
     devices_path = Path(config_dir, 'devices.csv')
 
     # Initialize devices file based on template
     if not devices_path.exists():
-        repo_dir = Path(__file__).resolve().parent.parent
-        template_file = Path(repo_dir, 'common_devices.csv')
-        shutil.copy(template_file, devices_path)
+        template = files('partner_tools.data').joinpath('common_devices.csv')
+        with template.open('rb') as src, devices_path.open('wb') as dst:
+            shutil.copyfileobj(src, dst)
 
-    with devices_path.open() as devices_file:
+    with devices_path.open(newline='', encoding='utf-8') as devices_file:
         reader = csv.DictReader(devices_file)
         return [
             CommonDevice(
@@ -49,11 +50,11 @@ def load_device_options() -> List[CommonDevice]:
 
 
 def save_config(auth_config: AuthConfig):
-    ini_config = configparser.SafeConfigParser()
+    ini_config = configparser.ConfigParser()
     ini_config['DEFAULT'] = auth_config._asdict()
     config_dir = get_config_directory()
     config_path = Path(config_dir, 'config.ini')
-    with config_path.open('w') as configfile:
+    with config_path.open('w', encoding='utf-8') as configfile:
         ini_config.write(configfile)
 
 
@@ -63,7 +64,7 @@ def load_config() -> AuthConfig:
     if not config_path.exists():
         raise RuntimeError('Please configure authentication by running partnertools-cli configure')
     ini_config = configparser.ConfigParser()
-    ini_config.read(str(config_path.absolute()))
+    ini_config.read(config_path, encoding='utf-8')
     auth_config_section = ini_config['DEFAULT']
     return AuthConfig(
         auth_config_section.get('method'),

@@ -1,5 +1,4 @@
 import logging
-from typing import List
 
 from partner_tools.services.base import BaseService
 from partner_tools.models.autopilot_device import AutopilotDevice
@@ -15,7 +14,7 @@ class CustomerService(BaseService):
     """
     base_url = 'customers'
 
-    def enroll_devices(self, devices: List[AutopilotDevice],
+    def enroll_devices(self, devices: list[AutopilotDevice],
                        customer_id: str, batch_name: str) -> None:
         """
         Enrolls devices into the customers Autopilot system
@@ -30,7 +29,7 @@ class CustomerService(BaseService):
         else:
             self._add_device_to_batch(devices, customer_id, batch_name)
 
-    def get_devices(self, customer_id: str, batch_name: str) -> List[AutopilotDevice]:
+    def get_devices(self, customer_id: str, batch_name: str) -> list[AutopilotDevice]:
         """
         Gets a list of devices in the given batch name from the customer
         """
@@ -38,12 +37,12 @@ class CustomerService(BaseService):
         resp = self._api_client.get(url)
         return resp['items']
 
-    def get_customers(self) -> List[Customer]:
+    def get_customers(self) -> list[Customer]:
         """
         :return a list of customers you have relationships with
         """
         resp = self._api_client.get(self.base_url)
-        return [Customer(**item) for item in resp['items']]
+        return [Customer.model_validate(item) for item in resp['items']]
 
     def get_relationship_request_url(self) -> str:
         """
@@ -53,12 +52,12 @@ class CustomerService(BaseService):
         return resp['url']
 
     # Lower level device methods
-    def _add_device_to_batch(self, devices: List[AutopilotDevice],
+    def _add_device_to_batch(self, devices: list[AutopilotDevice],
                              customer_id: str, batch_name: str):
         url = f'{self.base_url}/{customer_id}/deviceBatches/{batch_name}/devices'
         self._api_client.post(url, data=devices)
 
-    def _create_device_batch(self, devices: List[AutopilotDevice],
+    def _create_device_batch(self, devices: list[AutopilotDevice],
                              customer_id: str, batch_name: str):
         logging.info(f'Creating new device batch {batch_name}')
         url = f'{self.base_url}/{customer_id}/deviceBatches'
