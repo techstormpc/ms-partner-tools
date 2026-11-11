@@ -35,7 +35,7 @@ jobs:
       - name: Test install
         run: |
           pip install dist/*.whl
-          partnertools-cli
+          partnertools-cli --help
       - name: Publish package
         if: github.event_name == 'release'
         uses: pypa/gh-action-pypi-publish@release/v1
